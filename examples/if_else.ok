@@ -1,15 +1,17 @@
+#[std]
 
-fn not_(x: num) -> num {
+fn not(x: bool) -> num {
+    let result = 0;
     if x {
         putstrln("x is true");
-        0
+        result = 1
     } else {
         putstrln("x is false");
-        1
     }
+    return result
 }
 
 fn main() {
-    putnumln(not_(5));
-    putnumln(not_(0));
+    putnumln(not(true));
+    putnumln(not(false));
 }

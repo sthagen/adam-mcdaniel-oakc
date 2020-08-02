@@ -1,0 +1,6 @@
+#[std]
+#[include("lib/all.ok")]
+
+fn main() {
+    putnumln(strlen("test"));
+}

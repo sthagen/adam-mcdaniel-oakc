@@ -200,50 +200,11 @@ void machine_divide(machine *vm) {
     machine_push(vm, a/b);
 }
 
-void prn(machine *vm) {
-    double n = machine_pop(vm);
-    printf("%g", n);
-}
-
-void prs(machine *vm) {
-    double addr = machine_pop(vm);
-    int i;
-    for (i=addr; vm->memory[i]; i++) {
-        printf("%c", (char)vm->memory[i]);
+void machine_sign(machine *vm) {
+    double x = machine_pop(vm);
+    if (x >= 0) {
+        machine_push(vm, 1);
+    } else {
+        machine_push(vm, -1);
     }
 }
-
-void prc(machine *vm) {
-    double n = machine_pop(vm);
-    printf("%c", (char)n);
-}
-
-void prend(machine *vm) {
-    printf("\n");
-}
-
-void getch(machine *vm) {
-    char ch = getchar();
-    if (ch == '\r') {
-        ch = getchar();
-    }
-    machine_push(vm, ch);
-}
-
-void gt(machine *vm) {
-    machine_push(vm, machine_pop(vm)>machine_pop(vm));
-}
-
-void ge(machine *vm) {
-    machine_push(vm, machine_pop(vm)>=machine_pop(vm));
-}
-
-void lt(machine *vm) {
-    machine_push(vm, machine_pop(vm)<machine_pop(vm));
-}
-
-void le(machine *vm) {
-    machine_push(vm, machine_pop(vm)<=machine_pop(vm));
-}
-
-

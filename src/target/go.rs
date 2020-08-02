@@ -7,11 +7,19 @@ use std::{
 
 pub struct Go;
 impl Target for Go {
-    fn prelude(&self) -> String {
-        String::from(include_str!("std.go"))
+    fn get_name(&self) -> char {
+        'g'
     }
 
-    fn postlude(&self) -> String {
+    fn std(&self) -> String {
+        String::from(include_str!("std/std.go"))
+    }
+
+    fn core_prelude(&self) -> String {
+        String::from(include_str!("core/core.go"))
+    }
+
+    fn core_postlude(&self) -> String {
         String::new()
     }
 
@@ -45,6 +53,10 @@ impl Target for Go {
 
     fn divide(&self) -> String {
         String::from("vm.divide()\n")
+    }
+
+    fn sign(&self) -> String {
+        String::from("vm.sign()\n")
     }
 
     fn allocate(&self) -> String {
@@ -95,6 +107,6 @@ impl Target for Go {
                 }
             }
         }
-        Result::Err(Error::new(ErrorKind::Other, "error compiling "))
+        Result::Err(Error::new(ErrorKind::Other, "could not compile output golang code. is golang installed?"))
     }
 }

@@ -1,0 +1,6 @@
+#[no_std]
+#[include("lib/foreign.ok")]
+
+fn main() {
+	test();
+}

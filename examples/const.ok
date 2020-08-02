@@ -1,0 +1,9 @@
+#[std]
+
+const Y = X + 1;
+const X = 1;
+
+
+fn main() {
+    putstr("this should print 2 => "); putnumln(Y);
+}

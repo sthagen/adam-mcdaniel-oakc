@@ -179,64 +179,11 @@ func (vm *machine) divide() {
 	vm.push(a / b)
 }
 
-func prn(vm *machine) {
-	n := vm.pop()
-	fmt.Printf("%g", n)
-}
-
-func prs(vm *machine) {
-	addr := int(vm.pop())
-	for i := addr; vm.memory[i] != 0.0; i += 1 {
-		fmt.Printf("%c", rune(vm.memory[i]))
-	}
-}
-
-func prc(vm *machine) {
-	n := vm.pop()
-	fmt.Printf("%c", rune(n))
-}
-
-func prend(vm *machine) {
-	fmt.Print("\n")
-}
-
-func getch(vm *machine) {
-	ch, _ := READER.ReadByte()
-	if ch == '\r' {
-		ch, _ = READER.ReadByte()
-	}
-
-	vm.push(float64(ch))
-}
-
-func gt(vm *machine) {
-	if vm.pop() > vm.pop() {
+func (vm *machine) sign() {
+	x := vm.pop()
+	if x >= 0 {
 		vm.push(1.0)
 	} else {
-		vm.push(0.0)
-	}
-}
-
-func ge(vm *machine) {
-	if vm.pop() >= vm.pop() {
-		vm.push(1.0)
-	} else {
-		vm.push(0.0)
-	}
-}
-
-func lt(vm *machine) {
-	if vm.pop() < vm.pop() {
-		vm.push(1.0)
-	} else {
-		vm.push(0.0)
-	}
-}
-
-func le(vm *machine) {
-	if vm.pop() <= vm.pop() {
-		vm.push(1.0)
-	} else {
-		vm.push(0.0)
+		vm.push(-1.0)
 	}
 }

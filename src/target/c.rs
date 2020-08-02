@@ -8,11 +8,19 @@ use std::{
 
 pub struct C;
 impl Target for C {
-    fn prelude(&self) -> String {
-        String::from(include_str!("std.c"))
+    fn get_name(&self) -> char {
+        'c'
     }
 
-    fn postlude(&self) -> String {
+    fn std(&self) -> String {
+        String::from(include_str!("std/std.c"))
+    }
+
+    fn core_prelude(&self) -> String {
+        String::from(include_str!("core/core.c"))
+    }
+
+    fn core_postlude(&self) -> String {
         String::new()
     }
 
@@ -46,6 +54,10 @@ impl Target for C {
 
     fn divide(&self) -> String {
         String::from("machine_divide(vm);\n")
+    }
+
+    fn sign(&self) -> String {
+        String::from("machine_sign(vm);\n")
     }
 
     fn allocate(&self) -> String {
@@ -95,28 +107,34 @@ impl Target for C {
             .args(&["-x", "c", "-"])
             .stdin(Stdio::piped())
             .spawn();
-        
+
         if let Ok(mut child) = child {
             match child.stdin.as_mut() {
                 Some(stdin) => {
                     if let Err(error) = stdin.write_all(code.as_bytes()) {
-                        return Result::Err(Error::new(ErrorKind::Other,
-                            "unable to open write to child stdin"));
+                        return Result::Err(Error::new(
+                            ErrorKind::Other,
+                            "unable to open write to child stdin",
+                        ));
                     }
-                },
-                None => return Result::Err(Error::new(ErrorKind::Other,
-                    "unable to open child stdin"))
+                }
+                None => {
+                    return Result::Err(Error::new(ErrorKind::Other, "unable to open child stdin"))
+                }
             }
 
             match child.wait_with_output() {
                 Ok(_) => return Result::Ok(()),
-                Err(_) => return Result::Err(Error::new(ErrorKind::Other,
-                    "unable to read child output"))
+                Err(_) => {
+                    return Result::Err(Error::new(ErrorKind::Other, "unable to read child output"))
+                }
             }
         } else {
             // child failed to execute
-            Result::Err(Error::new(ErrorKind::Other,
-                "unable to spawn child gcc proccess"))
+            Result::Err(Error::new(
+                ErrorKind::Other,
+                "unable to spawn child gcc proccess",
+            ))
         }
     }
 }
