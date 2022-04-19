@@ -2,9 +2,12 @@ mod c;
 pub use c::C;
 mod go;
 pub use go::Go;
+mod ts;
+pub use ts::TS;
 
 pub trait Target {
     fn get_name(&self) -> char;
+    fn is_standard(&self) -> bool;
 
     fn std(&self) -> String;
     fn core_prelude(&self) -> String;

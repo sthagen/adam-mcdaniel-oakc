@@ -1,16 +1,17 @@
 [package]
 name = "oakc"
-version = "0.4.0"
+version = "0.6.7"
 authors = ["Adam McDaniel <adam.mcdaniel17@gmail.com>"]
 edition = "2018"
-license = "MIT"
+license = "Apache-2.0"
 description = "A portable programming language with a compact backend"
 readme = "README.md"
 documentation = "https://docs.rs/oakc"
 homepage = "https://github.com/adam-mcdaniel/oakc"
 repository = "https://github.com/adam-mcdaniel/oakc"
 
-
+[lib]
+doctest = false
 
 [[bin]]
 name = "oak"
@@ -26,3 +27,5 @@ regex = "1"
 comment = "0.1"
 clap = "2.33"
 asciicolor = "0.1"
+time = "^0.2"
+termimad = "0.8"

@@ -1,13 +1,12 @@
 #[std]
 
-const FILE = 2;
-type File(FILE) {
+struct File {
+    let name: &char,
+        is_open: num;
+
     fn open(name: &char) -> File {
         return [name, 1]
     }
-
-    fn name(self: &File) -> &&char { return self as &&char; }
-    fn is_open(self: &File) -> &num { return (self + 1) as &num; }
 
     fn read(self: &File) -> &char { return "Contents of file!!!"; }
 
@@ -19,10 +18,10 @@ type File(FILE) {
 
 fn main() {
     let f: File = File::open("test.txt");
-    prs!("file status: "); prn!(f->is_open); prend!();
+    putstr("file status: "); putnumln(f->is_open);
 
-    prs!("file contents: '"); prs!(f.read()); prc!('\''); prend!();
+    putstr("file contents: '"); putstr(f.read()); putcharln('\'');
     f.close();
 
-    prs!("file status: "); prn!(f->is_open); prend!();
+    putstr("file status: "); putnumln(f->is_open);
 }

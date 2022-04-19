@@ -1,5 +1,7 @@
 /target
-Cargo.lock
 *.exe
 .vscode
 main
+main.js
+main.go
+main.c
